@@ -4,8 +4,9 @@ public class State2 extends State{
         startTime = start;
         endTime = end;
     }
+    @Override
     public String getName()
     {
-        return "State2";
+        return super.getName()+"2";
     }
 }

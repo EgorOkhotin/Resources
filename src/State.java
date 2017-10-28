@@ -1,5 +1,5 @@
 public class State {
-    int startTime,
+    protected int startTime,
         endTime;
 
     public boolean isActive(int time)
@@ -46,7 +46,7 @@ public class State {
         return endTime;
     }
 
-    private String getName()
+    protected String getName()
     {
         return "State";
     }

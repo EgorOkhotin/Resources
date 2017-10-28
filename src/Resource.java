@@ -1,28 +1,38 @@
 
 public class Resource {
-    State[] states;
-    State activeState;
+    protected State[] states;
+    protected State activeState;
 
     public boolean changeState(int time)
     {
-        for(int i=0; i<states.length; i++)
+        if(activeState == null)
         {
-            if(states[i].isActive(time))
+            activeState = states[0];
+            return true;
+        }
+        else
+        {
+            for (int i = 0; i < states.length; i++)
             {
-                if(activeState.isEqual(states[i])) return false;
-                else
+                if (states[i].isActive(time))
                 {
-                    activeState = states[i];
-                    return true;
+                    if (activeState.isEqual(states[i])) return false;
+                    else
+                    {
+                        activeState = states[i];
+                        return true;
+                    }
                 }
             }
+            return false;
         }
-        return false;
     }
 
     public boolean isIntersection(State s)
     {
+        if(activeState.isEqual(s))
         return activeState.isIntersection(s);
+        else return false;
     }
 
     public State getActiveState()
@@ -35,7 +45,7 @@ public class Resource {
         if(isIntersection(r.activeState))
         {
             int[] result = new int[2];
-            int st1 = activeState.startTime,
+            int st1 = activeState.Start(),
                     st2=r.activeState.Start(),
                     en1 = activeState.End(),
                     en2 = r.activeState.End();
